@@ -17,6 +17,20 @@ const favoriteModel = {
       throw error;
     }
   },
+  deleteFavorite: async (userId, favoriteData) => {
+    console.log("Items recibidos:", favoriteData);
+
+    try {
+      const result = await pool.query(
+        "DELETE FROM favorites WHERE items = $1 AND user_id = $2",
+        [JSON.stringify(favoriteData), userId]
+      );
+      return result.rows[0];
+    } catch (error) {
+      console.log("Error en modelo:", error);
+      throw error;
+    }
+  },
   getFavoriteByUserId: async (userId) => {
     const result = await pool.query("SELECT items FROM favorites WHERE user_id = $1", [userId]);
     return result.rows;

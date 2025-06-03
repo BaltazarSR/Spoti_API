@@ -17,6 +17,21 @@ const favoriteController = {
             res.status(500).json({ error: "Internal Server Error" });
         }
     },
+    deleteFavorite: async (req, res) => {
+        try {
+            const userId = req.params.userId;
+            const favoriteData = req.body;
+
+            console.log(userId);
+            console.log(favoriteData);
+            const response = await favoriteModel.deleteFavorite(userId, favoriteData);
+            res.status(200).json({ message: "Favorite deleted successfully" });
+
+        } catch (error) {
+            console.error("Error delete favorite:", error);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    },
     getFavoriteByUserId: async(req, res) => {
         const {userId} = req.params;
         try {
