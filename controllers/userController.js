@@ -21,6 +21,26 @@ const userController = {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     },
+    getIdByMail: async(req, res) => {
+        const {mail} = req.params;
+        try {
+            const user = await userModel.getIdByMail(mail);
+            res.status(200).json(user)
+        } catch (error) {
+            console.log("Error ferching users:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    },
+    getPasswordByMail: async(req, res) => {
+        const {mail} = req.params;
+        try {
+            const user = await userModel.getPasswordByMail(mail);
+            res.status(200).json(user)
+        } catch (error) {
+            console.log("Error ferching users:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    },
     createUser: async (req, res) => {
         const userData = req.body;
         console.log(req.body);

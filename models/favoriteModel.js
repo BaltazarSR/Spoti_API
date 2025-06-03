@@ -17,6 +17,10 @@ const favoriteModel = {
       throw error;
     }
   },
+  getFavoriteByUserId: async (userId) => {
+    const result = await pool.query("SELECT items FROM favorites WHERE user_id = $1", [userId]);
+    return result.rows;
+  }
 };
 
 export default favoriteModel;
